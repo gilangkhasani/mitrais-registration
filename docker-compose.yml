@@ -1,0 +1,20 @@
+## YAML Template.
+---
+version: "3.7"
+services:
+  postgres:
+    image: postgres:11-alpine
+    container_name: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=B!sm!ll4h
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=mydb
+    restart: unless-stopped
+volumes:
+  postgres-data:

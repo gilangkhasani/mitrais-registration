@@ -1,0 +1,91 @@
+spring:
+  profiles:
+    active: "dev"
+  application:
+    name: mitrais-registration
+  main:
+    banner-mode: "off"
+  jmx:
+    enabled: false
+  freemarker:
+    enabled: false
+  groovy:
+    template:
+      enabled: false
+  thymeleaf:
+    prefix: classpath:/template/
+    suffix: .html
+  datasource:
+    driver-class-name: "org.postgresql.Driver"
+    name: "mydb"
+    username: postgres
+    password: B!sm!ll4h
+    host: localhost
+    port: 5432
+    url: "jdbc:postgresql://localhost:5432/mydb"
+  jackson:
+    mapper:
+      DEFAULT_VIEW_INCLUSION: true
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+      indent_output: true
+      WRITE_DATES_AS_TIMESTAMPS: false
+    deserialization:
+      FAIL_ON_IGNORED_PROPERTIES: false
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+      ACCEPT_SINGLE_VALUE_AS_ARRAY: true
+  jpa:
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        jdbc.lob.non_contextual_creation: true
+management:
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  endpoint:
+    health:
+      show-details: "ALWAYS"
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - prometheus
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    id.rastek.wifus.masterlog: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+
+---
+
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: "org.postgresql.Driver"
+    name: "mydb"
+    username: postgres
+    password: B!sm!ll4h
+    host: postgres
+    port: 5432
+    url: "jdbc:postgresql://localhost:5432/mydb"
+logging:
+  level:
+    root: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: DEBUG
+    id.rastek.wifus.masterlog: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
